@@ -126,4 +126,23 @@ In a real enterprise, you wouldn't just run these commands manually. You would u
 - Routes: Instead of complicated LoadBalancers, OpenShift gives you a simple URL like ```pizza.apps.company.com``` automatically.
 
 
+## NOTE:
+
+To restart the lab from scratch, we need to clear the kitchen (clean up old containers and configs) and then follow the Mario’s Pizza story step-by-step.
+
+- Stop Podman Containers:
+
+```
+podman stop --all
+podman rm --all
+```
+
+- Clear Kubernetes (Rancher):
+
+```
+kubectl delete deployment pizza-deployment --ignore-not-found
+kubectl delete service pizza-service --ignore-not-found
+```
+
+
 
