@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-deployment
+spec:
+  replicas: 3 # Mario wants 3 ovens running at all times!
+  selector:
+    matchLabels:
+      app: pizza
+  template:
+    metadata:
+      labels:
+        app: pizza
+    spec:
+      containers:
+      - name: pizza-container
+        image: marios-pizza:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-service
+spec:
+  type: LoadBalancer # The 'Front Counter' for customers
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30001
+  selector:
+    app: pizza
